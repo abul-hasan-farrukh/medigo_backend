@@ -36,7 +36,7 @@ import com.medigo.service.WorkerService;
 //Controller gives the response.
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("${ALLOWED_ORIGIN:*}")
 @RequestMapping("/admin") // http://localhost:9090/admin/login
 public class AdminController {
 
