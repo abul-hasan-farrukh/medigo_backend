@@ -25,7 +25,7 @@ import com.medigo.model.Worker;
 import com.medigo.service.WorkerService;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("${ALLOWED_ORIGIN:*}")
 @RequestMapping("/worker") // http://localhost:9090/worker/workerLogin
 public class WorkerController {
 
