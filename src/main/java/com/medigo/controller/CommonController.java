@@ -19,7 +19,7 @@ import com.medigo.service.CommonService;
 @RestController
 //@RequestMapping("/common")
 //@CrossOrigin({"http://localhost:5173"})
-@CrossOrigin("*")
+@CrossOrigin("${ALLOWED_ORIGIN:*}")
 public class CommonController {
 
 	// Controller is a waiter.
