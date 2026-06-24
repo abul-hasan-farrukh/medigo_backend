@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/chat")
-@CrossOrigin(origins = "*")
+@CrossOrigin("${ALLOWED_ORIGIN:*}")
 public class ChatController {
 
     @Value("${cohere.api.key}")
