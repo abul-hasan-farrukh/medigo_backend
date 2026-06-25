@@ -223,8 +223,10 @@ public class WorkerService {
 			File targetFile = new File(uploadDir, uniqueFileName);
 			imageFile.transferTo(targetFile); // transferTo is built-in method of MultipartFile Interface
 
+            String baseUrl = "${app.base-url}";
+
 			// Generating image URL to send to FrontEnd developer
-			String IMAGEURL = "http://localhost:9090/uploads/workerimages/" + uniqueFileName;
+			String IMAGEURL = baseUrl + "/uploads/workerimages/" + uniqueFileName;
 
 			String email = worker.getEmail(); // coming from React
 			Optional<Worker> opt = workerRepository.findById(email);
@@ -278,7 +280,9 @@ public class WorkerService {
 				req.setReportStatus("uploaded"); // updating status of report in database.
 				sampleCollectionRepository.save(req);
 
-				String FILEURL = "http://localhost:9090/uploads/samplereports/" + uniqueFileName;
+                String baseUrl = "${app.base-url}";
+
+				String FILEURL = baseUrl + "/uploads/samplereports/" + uniqueFileName;
 
 				map.put("fileName", uniqueFileName);
 				map.put("fileURL", FILEURL);
@@ -544,8 +548,10 @@ public class WorkerService {
 
 			paymentRepository.save(payment);
 
+            String baseUrl = "${app.base-url}";
+
 			// URL
-			String FILEURL = "http://localhost:9090/uploads/testreports/" + uniqueFileName;
+			String FILEURL = baseUrl + "/uploads/testreports/" + uniqueFileName;
 
 			map.put("fileName", uniqueFileName);
 			map.put("fileURL", FILEURL);
