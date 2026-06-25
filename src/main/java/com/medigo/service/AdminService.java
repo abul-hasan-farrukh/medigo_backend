@@ -10,6 +10,7 @@ import com.medigo.repository.TestRepository;
 import com.medigo.repository.WorkerRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -203,9 +204,11 @@ public class AdminService {
 			// Setting the target folder for image upload with image name.
 			File targetFile = new File(uploadDir, uniqueFileName);
 			imageFile.transferTo(targetFile); // transferTo is built-in method of MultipartFile Interface
+            
+            String baseUrl = "${app.base-url}";
 
 			// Generating image URL to send to FrontEnd developer
-			String IMAGEURL = "http://localhost:9090/uploads/profileimages/" + uniqueFileName;
+			String IMAGEURL = baseUrl + "/uploads/profileimages/" + uniqueFileName;
 
 			String email = admin.getEmail(); // coming from React
 			Optional<Admin> opt = adminRepository.findById(email);
