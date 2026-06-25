@@ -270,8 +270,10 @@ public class UserService {
 			File targetFile = new File(uploadDir, uniqueFileName);
 			imageFile.transferTo(targetFile); // transferTo is built-in method of MultipartFile Interface
 
+            String baseUrl = "${app.base-url}";
+
 			// Generating image URL to send to FrontEnd developer
-			String IMAGEURL = "http://localhost:9090/uploads/userimages/" + uniqueFileName;
+			String IMAGEURL = baseUrl + "/uploads/userimages/" + uniqueFileName;
 
 			String email = user.getEmail(); // coming from React
 			Optional<User> opt = userRepository.findById(email);
