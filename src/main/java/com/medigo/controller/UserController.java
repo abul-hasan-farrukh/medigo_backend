@@ -30,7 +30,7 @@ import com.medigo.model.User;
 import com.medigo.service.UserService;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("${ALLOWED_ORIGIN:*}")
 @RequestMapping("/user") // http://localhost:9090/user/registration
 
 public class UserController {
