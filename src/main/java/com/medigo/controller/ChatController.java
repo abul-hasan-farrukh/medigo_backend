@@ -20,7 +20,7 @@ public class ChatController {
     private String apiKey;
 
     private final WebClient webClient = WebClient.builder()
-            .baseUrl("https://api.cohere.ai/v1")
+            .baseUrl("https://api.cohere.com/v1")
             .build();
 
     @PostMapping
