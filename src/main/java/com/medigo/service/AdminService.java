@@ -199,6 +199,13 @@ public class AdminService {
 		// Reach to upload directory
 		String uploadDir = projectRoot + "/uploads/profileimages";
 
+        // Create directory if it does not exist
+        File uploadDirectory = new File(uploadDir);
+
+        if (!uploadDirectory.exists()) {
+            uploadDirectory.mkdirs();
+        }
+
 		Map<String, String> imageMap = new HashMap<>(); // using Map and HashMap to send or return multiple values to
 														// the frontend
 
