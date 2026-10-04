@@ -180,6 +180,9 @@ public class AdminService {
 		return message;
 	}
 
+    @Value("${app.base-url}")
+    private String baseUrl;
+
 	// method for uploadPic - 12 Mar, 2026
 	public Map<String, String> uploadPic(Admin admin, MultipartFile imageFile) {
 		String fileName = imageFile.getOriginalFilename();
@@ -204,8 +207,7 @@ public class AdminService {
 			// Setting the target folder for image upload with image name.
 			File targetFile = new File(uploadDir, uniqueFileName);
 			imageFile.transferTo(targetFile); // transferTo is built-in method of MultipartFile Interface
-            
-            String baseUrl = "${app.base-url}";
+
 
 			// Generating image URL to send to FrontEnd developer
 			String IMAGEURL = baseUrl + "/uploads/profileimages/" + uniqueFileName;
