@@ -265,6 +265,13 @@ public class UserService {
 		// Reach to upload directory
 		String uploadDir = projectRoot + "/uploads/userimages";
 
+        // Create directory if it does not exist
+        File uploadDirectory = new File(uploadDir);
+
+        if (!uploadDirectory.exists()) {
+            uploadDirectory.mkdirs();
+        }
+
 		Map<String, String> imageMap = new HashMap<>(); // using Map and HashMap to send or return multiple values to
 														// the frontend
 
@@ -299,7 +306,7 @@ public class UserService {
 
 		catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Image Upload Failed");
+            throw new RuntimeException("Image Upload Failed: " + e.getMessage(), e);
 		}
 		return imageMap;
 	}
