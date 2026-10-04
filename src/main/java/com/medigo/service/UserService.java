@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -245,6 +246,9 @@ public class UserService {
 		return ur; // returning updated object
 	}
 
+    @Value("${app.base-url}")
+    private String baseUrl;
+
 	// method for uploadPic - 13 Mar, 2026
 	public Map<String, String> uploadPic(User user, MultipartFile imageFile) {
 		String fileName = imageFile.getOriginalFilename();
@@ -270,7 +274,6 @@ public class UserService {
 			File targetFile = new File(uploadDir, uniqueFileName);
 			imageFile.transferTo(targetFile); // transferTo is built-in method of MultipartFile Interface
 
-            String baseUrl = "${app.base-url}";
 
 			// Generating image URL to send to FrontEnd developer
 			String IMAGEURL = baseUrl + "/uploads/userimages/" + uniqueFileName;
@@ -316,10 +319,7 @@ public class UserService {
 				System.out.println("tr " + booking.getTransactionNo());
 				Optional<Test> opt = testRepository.findById(booking.getTestId());
 
-				if (opt.isPresent()) {
-
-					booking.setTest(opt.get());
-				}
+                opt.ifPresent(booking::setTest);
 			}
 		}
 		System.out.println("in pending bookingd" + bookings.size());
