@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -493,7 +494,7 @@ public class WorkerService {
 			for (TestBooking booking : bookings) {
 
 				if (booking.getTransactionNo().equals(payment.getTransactionNo())
-						&& payment.isReportUploaded() == false) {
+						&& !payment.isReportUploaded()) {
 					Optional<Test> opt = testRepository.findById(booking.getTestId());
 
 					if (opt.isPresent()) {
@@ -514,6 +515,9 @@ public class WorkerService {
 
 		return list;
 	}
+
+    @Value("${app.base-url}")
+    private String baseUrl;
 
 	// code to upload testReports - 15 April, 2026
 	public Map<String, String> uploadTestReport(MultipartFile file, String txn) {
@@ -548,7 +552,6 @@ public class WorkerService {
 
 			paymentRepository.save(payment);
 
-            String baseUrl = "${app.base-url}";
 
 			// URL
 			String FILEURL = baseUrl + "/uploads/testreports/" + uniqueFileName;
