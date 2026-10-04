@@ -199,6 +199,9 @@ public class WorkerService {
 
 	}
 
+    @Value("${app.base-url}")
+    private String baseUrl;
+
 	// method for uploadPic - 17 Mar, 2026
 	public Map<String, String> uploadPic(Worker worker, MultipartFile imageFile) {
 		String fileName = imageFile.getOriginalFilename();
@@ -215,6 +218,12 @@ public class WorkerService {
 		// Reach to upload directory
 		String uploadDir = projectRoot + "/uploads/workerimages";
 
+        File uploadDirectory = new File(uploadDir);
+
+        if (!uploadDirectory.exists()) {
+            uploadDirectory.mkdirs();
+        }
+
 		Map<String, String> imageMap = new HashMap<>(); // using Map and HashMap to send or return multiple values to
 														// the frontend
 
@@ -224,7 +233,7 @@ public class WorkerService {
 			File targetFile = new File(uploadDir, uniqueFileName);
 			imageFile.transferTo(targetFile); // transferTo is built-in method of MultipartFile Interface
 
-            String baseUrl = "${app.base-url}";
+
 
 			// Generating image URL to send to FrontEnd developer
 			String IMAGEURL = baseUrl + "/uploads/workerimages/" + uniqueFileName;
@@ -281,7 +290,6 @@ public class WorkerService {
 				req.setReportStatus("uploaded"); // updating status of report in database.
 				sampleCollectionRepository.save(req);
 
-                String baseUrl = "${app.base-url}";
 
 				String FILEURL = baseUrl + "/uploads/samplereports/" + uniqueFileName;
 
@@ -516,9 +524,6 @@ public class WorkerService {
 		return list;
 	}
 
-    @Value("${app.base-url}")
-    private String baseUrl;
-
 	// code to upload testReports - 15 April, 2026
 	public Map<String, String> uploadTestReport(MultipartFile file, String txn) {
 
@@ -542,6 +547,12 @@ public class WorkerService {
 
 			String projectRoot = System.getProperty("user.dir");
 			String uploadDir = projectRoot + "/uploads/testreports";
+
+            File uploadDirectory = new File(uploadDir);
+
+            if (!uploadDirectory.exists()) {
+                uploadDirectory.mkdirs();
+            }
 
 			File targetFile = new File(uploadDir, uniqueFileName);
 			file.transferTo(targetFile);
